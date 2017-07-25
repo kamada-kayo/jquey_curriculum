@@ -33,8 +33,7 @@
 $(function() {
   $('.nav').children('li').on('click', function() {
     var index = $(this).index();
-    $('.contents').children('li').addClass('is-hidden');
-    $('.contents').children('li').eq(index).removeClass('is-hidden')
+    $('.contents').children('li').addClass('is-hidden').eq(index).removeClass('is-hidden');
   });
 });
 </script>
