@@ -42,6 +42,13 @@
 // .offset().top 要素の位置を取得します。
 // .fadeIn() 要素をフェードインさせる。
 // .fadeOut() 要素をフェードアウトさせる。
+$(function(){
+  $('menu').on('click', function() {
+    var data = $(this).data('scroll-place-type');
+    console.log(data);
+    $(this).animate({scrollTop:data});
+  });
+});
 </script>
 </body>
 </html>
