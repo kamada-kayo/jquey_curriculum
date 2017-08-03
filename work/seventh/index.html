@@ -35,8 +35,32 @@
 // .width() 要素の幅を取得します。
 // .length 要素の個数を取得します。
 $(function(){
-  $('')
-})
+  var Length = $('.slider-list').children().length;
+  var current = 0;
+  var imgWidth = $('.slider-list').children().width();
+
+  $('.slider-ctrl-btn').on('click', function(){
+    var data = $(this).data('ctrl');
+
+    if(data === 'next'){
+      current ++;
+    } else if(data ==='prev'){
+      current --;
+    };
+
+    if(current === Length){
+      current = 0;
+      } else if(current === -1){
+        current =3;
+      }
+
+  $('.slider-list').animate({
+    left: -imgWidth * current
+  });
+
+    console.log(current);
+  });
+});
 </script>
 </body>
 </html>
