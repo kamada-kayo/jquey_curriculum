@@ -43,29 +43,31 @@
 // .fadeIn() 要素をフェードインさせる。
 // .fadeOut() 要素をフェードアウトさせる。
 $(function(){
+  var scrollTopBtn = $('.scrollTopBtn');
+
   $('.menu__btn').on('click', function() {
-    var data = $(this).data('scroll-place-type');
+    var menuData = $(this).data('scroll-place-type');
     // console.log(data);
-  $('.contents > .title').each(function() {
-    var data__2 = $(this).data('scroll-place-type');
-    // console.log(data__2);
-    if (data === data__2){
-      var scroll = $(this).offset().top;
-      console.log(scroll);
-  //console.log('scroll')
-      $('html, body').animate({ scrollTop: scroll });
-    };
-  });
+    $('.contents > .title').each(function() {
+      var titleData = $(this).data('scroll-place-type');
+      // console.log(data__2);
+      if (menuData === titleData) {
+        var scroll = $(this).offset().top;
+        console.log(scroll);
+    //console.log('scroll')
+        $('html, body').animate({ scrollTop: scroll });
+      };
+    });
   });
 
-  var scrollTopBtn = $('.scrollTopBtn');
-  $(window).scroll(function(){
-    if($(this).scrollTop() > 100){
+  $(window).on('scroll', function() {
+    if ($(this).scrollTop() > 100) {
       scrollTopBtn.fadeIn();
-    } else{
+    } else {
       scrollTopBtn.fadeOut();
     };
   });
+
   scrollTopBtn.on('click', function() {
     $('html, body').animate({ scrollTop: 0 });
   });
