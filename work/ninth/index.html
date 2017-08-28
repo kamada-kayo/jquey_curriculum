@@ -46,28 +46,40 @@
 //
 // このテンプレートに取得してきたオブジェクトを流し込みます。
 $(function() {
+  var $colorList = $('.colorList');
+
   $.ajax({
     url: './data.json'
   })
   .done(function(data) {
-    var colorsArray = data.colorsArray;
-    var colorsArrayLength = colorsArray.length;
-    var template = '';
+   //  var colorsArray = data.colorsArray;
+   //  var colorsArrayLength = colorsArray.length;
+   //  var template = '';
 
-    console.log(colorsArray);
-    console.log(colorsArrayLength);
-    console.log(template);
+   //  console.log(colorsArray);
+   //  console.log(colorsArrayLength);
+   //  console.log(template);
 
-   for (var i = 0; i < colorsArrayLength; i++){
-      template +=
+   // for (var i = 0; i < colorsArrayLength; i++){
+   //    template +=
+   //      '<li class="colorList__item">' +
+   //        '<p class="colorList__title" style="background-color: ' + colorsArray[i].hexValue + ';">' +
+   //          colorsArray[i].colorName +
+   //        '</p>' +
+   //      '</li>';
+   //  }
+   //  var $colorList = $('.colorList');
+   //  $colorList.append(template);
+    data.colorsArray.forEach(function(color) {
+      var template =
         '<li class="colorList__item">' +
-          '<p class="colorList__title" style="background-color: ' + colorsArray[i].hexValue + ';">' +
-            colorsArray[i].colorName +
+          '<p class="colorList__title" style="background-color:' + color.hexValue + ';">' +
+            color.colorName +
           '</p>' +
         '</li>';
-    }
-    var $colorList = $('.colorList');
-    $colorList.html(template);
+
+      $colorList.append(template);
+    });
   });
 });
 </script>
