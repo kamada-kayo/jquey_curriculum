@@ -22,6 +22,7 @@
       <button id="js-search-button" class="search__btn">検索する</button>
     </div>
     <ul class="lists"></ul>
+    <div class="message"></div>
   </div>
 </div>
 <script src="../../common/js/jquery.js"></script>
@@ -69,7 +70,7 @@ $(function(){
 
   $('.search__btn').on('click', function(){
     var input = $('.search__text__input').val();
-    $('.lists').empty();
+    $lists.add($('.message')).empty();
 
     $.ajax({
       url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522',
@@ -79,9 +80,18 @@ $(function(){
         applicationId: '1019399324990976605',
         booksGenreId: '001',
         keyword: input,
+        hits: 20
       },
     })
     .done(function(data) {
+      console.log(data);
+      if (data.Items.length === 0){
+      var noHit =
+      '検索結果が見つかりませんでした。' +
+      '<br/>' +
+      '別のキーワードで検索して下さい。';
+      $('.message').append(noHit)};
+
       data.Items.forEach(function(book) {
         console.log(book)
         var template =
@@ -96,27 +106,13 @@ $(function(){
             '</div>' +
           '</li>';
         $lists.append(template);
-
-      //20件表示
-      var hideLists = $('.lists').find("li:gt(19)");
-      $(hideLists).hide();
       });
-      //0件
-      var itemLength = $('.lists__item').length;
-      if (itemLength === 0) {
-      var notFound =
-       '<div class = "message">' +
-         '検索結果が見つかりませんでした。' +
-         '<br>' +
-         '別のキーワードで検索して下さい。' +
-       '</div>';
-      $lists.append(notFound);
-      };
     })
     .fail(function(error) {
+      console.log(error)
       var errorMessage =
       '<div class = "message">' +
-        error.responseText +
+        error.responseJSON.error_description +
       '</div>';
       $lists.append(errorMessage);
     });
